@@ -7,70 +7,605 @@
 <meta name="description" content="Injino — ton espace musical personnel.">
 <link rel="manifest" href="./manifest.json">
 <title>injino — ton espace musical</title>
+
 <style>
 :root{--bg:#f6f8f5;--card:#fff;--ink:#172016;--muted:#778073;--line:#e8ece5;--lime:#c6ff45;--soft:#edf3e8}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-button,input{font:inherit}button{cursor:pointer}.app{max-width:520px;margin:auto;min-height:100dvh;padding:env(safe-area-inset-top) 18px calc(112px + env(safe-area-inset-bottom))}
-header{display:flex;align-items:center;gap:11px;padding:20px 0 24px}.logo{width:44px;height:44px;border-radius:15px;background:var(--lime);display:grid;place-items:center;font-size:22px;font-weight:900;letter-spacing:-2px}.brand{font-size:24px;font-weight:850;letter-spacing:-1.4px}.tag{font-size:10px;color:var(--muted);letter-spacing:1.5px;margin-top:2px}.avatar{margin-left:auto;width:39px;height:39px;border:1px solid var(--line);background:white;border-radius:50%;display:grid;place-items:center;font-size:17px}
-.eyebrow{font-size:11px;letter-spacing:1.4px;font-weight:750;color:var(--muted);text-transform:uppercase}h1{font-size:35px;line-height:1.05;letter-spacing:-1.7px;margin:12px 0 10px}p{color:var(--muted);line-height:1.5;font-size:14px;margin:0}
-.hero{background:var(--card);border:1px solid var(--line);border-radius:25px;padding:22px;margin-bottom:28px}.hero p{max-width:270px;margin-bottom:20px}.primary{width:100%;border:0;background:var(--lime);border-radius:15px;padding:15px 16px;display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:750;text-align:left}.primary .arrow{margin-left:auto;font-size:20px}
-.section-head{display:flex;align-items:center;justify-content:space-between;margin:26px 0 14px}h2{font-size:21px;letter-spacing:-.7px;margin:0}.small-btn{border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:650}
-.search{height:49px;border:1px solid var(--line);background:white;border-radius:15px;display:flex;align-items:center;gap:10px;padding:0 14px;margin-bottom:16px}.search span{font-size:19px;color:var(--muted)}.search input{border:0;outline:0;min-width:0;width:100%;background:transparent;color:var(--ink);font-size:14px}
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tile{border:0;border-radius:17px;min-height:108px;padding:14px 12px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;text-align:left;font-weight:700;color:var(--ink)}.tile .ico{font-size:22px}.tile:nth-child(1){background:#e8f1e5}.tile:nth-child(2){background:#e7eaf5}.tile:nth-child(3){background:#f6ebdd}
-.view{display:none}.view.active{display:block}.list{display:flex;flex-direction:column;gap:7px}.track{display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--line);border-radius:16px;padding:10px;min-width:0}.cover{width:49px;height:49px;flex:none;border-radius:12px;background:linear-gradient(135deg,#dff8b1,#b6d58b);display:grid;place-items:center;font-size:20px}.track-info{min-width:0;flex:1}.track-title{font-size:14px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track-sub{font-size:12px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.icon-btn{border:0;background:transparent;color:var(--ink);padding:8px;font-size:18px}
-.empty{background:white;border:1px dashed #d7ded2;border-radius:18px;padding:24px;text-align:center}.empty .big{font-size:30px;margin-bottom:10px}.notice{font-size:12px;color:var(--muted);line-height:1.45;margin:12px 2px}.discover-box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:14px}.discover-box h3{margin:0 0 7px;font-size:17px}.file-btn{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;border:1px solid var(--line);background:white;border-radius:14px;padding:13px;font-size:13px;font-weight:700}input[type=file]{display:none}
-.bottom{position:fixed;bottom:0;left:0;right:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(246,248,245,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:5}.nav{max-width:490px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.nav button{border:0;background:transparent;border-radius:14px;padding:8px 3px 7px;color:var(--muted);font-size:11px;font-weight:650;display:flex;align-items:center;gap:4px;flex-direction:column}.nav button .navico{font-size:19px}.nav button.active{background:var(--lime);color:var(--ink)}
-.player{position:fixed;bottom:76px;left:12px;right:12px;max-width:496px;margin:auto;background:#172016;color:white;border-radius:17px;padding:10px 12px;display:none;align-items:center;gap:8px;z-index:6;box-shadow:0 8px 24px #17201620}.player.show{display:flex}.player .cover{width:40px;height:40px;border-radius:10px}.player .track-info{color:white}.player .track-sub{color:#c3c9bf}.player .icon-btn{color:white}.progress{height:3px;background:#4b5548;border-radius:10px;position:absolute;bottom:0;left:12px;right:12px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--lime)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+button,input{font:inherit}button{cursor:pointer}
+.app{max-width:520px;margin:auto;min-height:100dvh;padding:env(safe-area-inset-top) 18px calc(125px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:11px;padding:20px 0 24px}
+.logo{width:44px;height:44px;border-radius:15px;background:var(--lime);display:grid;place-items:center;font-size:22px;font-weight:900;letter-spacing:-2px}
+.brand{font-size:24px;font-weight:850;letter-spacing:-1.4px}
+.tag{font-size:10px;color:var(--muted);letter-spacing:1.5px;margin-top:2px}
+.avatar{margin-left:auto;width:39px;height:39px;border:1px solid var(--line);background:white;border-radius:50%;display:grid;place-items:center;font-size:17px}
+.eyebrow{font-size:11px;letter-spacing:1.4px;font-weight:750;color:var(--muted);text-transform:uppercase}
+h1{font-size:35px;line-height:1.05;letter-spacing:-1.7px;margin:12px 0 10px}
+p{color:var(--muted);line-height:1.5;font-size:14px;margin:0}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:25px;padding:22px;margin-bottom:28px}
+.hero p{max-width:270px;margin-bottom:20px}
+.primary{width:100%;border:0;background:var(--lime);border-radius:15px;padding:15px 16px;display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:750;text-align:left}
+.primary .arrow{margin-left:auto;font-size:20px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:26px 0 14px}
+h2{font-size:21px;letter-spacing:-.7px;margin:0}
+.small-btn{border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:650;padding:8px}
+.search{height:49px;border:1px solid var(--line);background:white;border-radius:15px;display:flex;align-items:center;gap:10px;padding:0 14px;margin-bottom:16px}
+.search span{font-size:19px;color:var(--muted)}
+.search input{border:0;outline:0;min-width:0;width:100%;background:transparent;color:var(--ink);font-size:14px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{border:0;border-radius:17px;min-height:108px;padding:14px 12px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;text-align:left;font-weight:700;color:var(--ink)}
+.tile .ico{font-size:22px}
+.tile:nth-child(1){background:#e8f1e5}.tile:nth-child(2){background:#e7eaf5}.tile:nth-child(3){background:#f6ebdd}
+.view{display:none}.view.active{display:block}
+.list{display:flex;flex-direction:column;gap:7px}
+.track{display:flex;align-items:center;gap:8px;background:white;border:1px solid var(--line);border-radius:16px;padding:10px;min-width:0}
+.cover{width:45px;height:45px;flex:none;border-radius:12px;background:linear-gradient(135deg,#dff8b1,#b6d58b);display:grid;place-items:center;font-size:20px}
+.track-info{min-width:0;flex:1}
+.track-title{font-size:14px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track-sub{font-size:12px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.icon-btn{border:0;background:transparent;color:var(--ink);padding:7px;font-size:17px;flex:none}
+.empty{background:white;border:1px dashed #d7ded2;border-radius:18px;padding:24px;text-align:center}
+.empty .big{font-size:30px;margin-bottom:10px}
+.notice{font-size:12px;color:var(--muted);line-height:1.45;margin:12px 2px}
+.discover-box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:14px}
+.discover-box h3{margin:0 0 7px;font-size:17px}
+.file-btn{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;border:1px solid var(--line);background:white;border-radius:14px;padding:13px;font-size:13px;font-weight:700}
+input[type=file]{display:none}
+.playlist-actions{display:flex;gap:8px;margin:18px 0}
+.playlist-actions input{flex:1;min-width:0;border:1px solid var(--line);border-radius:14px;padding:13px;background:white;color:var(--ink)}
+.playlist-actions button{border:0;border-radius:14px;background:var(--lime);padding:0 16px;font-weight:750}
+.playlist-card{background:white;border:1px solid var(--line);border-radius:17px;padding:12px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.playlist-art{width:49px;height:49px;border-radius:13px;background:var(--lime);display:grid;place-items:center;font-size:22px;flex:none}
+.playlist-info{flex:1;min-width:0}
+.playlist-name{font-weight:750;font-size:14px;overflow-wrap:anywhere}
+.playlist-count{font-size:12px;color:var(--muted);margin-top:4px}
+.playlist-detail-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:22px 0 14px}
+.playlist-detail-head h2{overflow-wrap:anywhere}
 .status{font-size:11px;color:var(--muted);text-align:center;margin:12px 0 0;min-height:16px}
-@media(min-width:560px){body{padding:20px 0}.app{border-radius:30px;border:1px solid var(--line);background:var(--bg)}.bottom{bottom:15px;border:1px solid var(--line);border-radius:20px;left:calc(50% - 260px);right:calc(50% - 260px)}.player{bottom:95px}}
+.bottom{position:fixed;bottom:0;left:0;right:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(246,248,245,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:5}
+.nav{max-width:490px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.nav button{border:0;background:transparent;border-radius:14px;padding:8px 2px 7px;color:var(--muted);font-size:10px;font-weight:650;display:flex;align-items:center;gap:4px;flex-direction:column}
+.nav button .navico{font-size:19px}
+.nav button.active{background:var(--lime);color:var(--ink)}
+.player{position:fixed;bottom:83px;left:12px;right:12px;max-width:496px;margin:auto;background:#172016;color:white;border-radius:17px;padding:10px 12px;display:none;align-items:center;gap:7px;z-index:6;box-shadow:0 8px 24px #17201620}
+.player.show{display:flex}
+.player .cover{width:39px;height:39px;border-radius:10px;flex:none}
+.player .track-info{color:white}
+.player .track-sub{color:#c3c9bf}
+.player .icon-btn{color:white;padding:6px}
+.progress{height:3px;background:#4b5548;border-radius:10px;position:absolute;bottom:0;left:12px;right:12px;overflow:hidden}
+.progress span{display:block;height:100%;width:0;background:var(--lime)}
+@media(min-width:560px){
+ body{padding:20px 0}
+ .app{border-radius:30px;border:1px solid var(--line);background:var(--bg)}
+ .bottom{bottom:15px;border:1px solid var(--line);border-radius:20px;left:calc(50% - 260px);right:calc(50% - 260px)}
+ .player{bottom:100px}
+}
 </style>
 </head>
+
 <body>
 <div class="app">
-<header><div class="logo">i.</div><div><div class="brand">injino</div><div class="tag">YOUR SOUND. YOUR SPACE.</div></div><div class="avatar">♪</div></header>
+<header>
+ <div class="logo">i.</div>
+ <div><div class="brand">injino</div><div class="tag">YOUR SOUND. YOUR SPACE.</div></div>
+ <div class="avatar">♪</div>
+</header>
+
 <main>
 <section id="home" class="view active">
-<div class="hero"><div class="eyebrow">TON ESPACE MUSICAL</div><h1>La musique,<br>à ta façon.</h1><p>Ta collection, tes favoris, ton univers.</p><button class="primary" id="heroImport"><span>＋</span> Importer ma musique <span class="arrow">↗</span></button></div>
-<div class="section-head"><h2>Accès rapide</h2></div><div class="tiles"><button class="tile" data-go="library"><span class="ico">▤</span><span>Ma bibliothèque</span></button><button class="tile" data-go="favorites"><span class="ico">♡</span><span>Mes favoris</span></button><button class="tile" data-go="discover"><span class="ico">⌕</span><span>Découvrir</span></button></div>
-<div class="section-head"><h2>Dernières écoutes</h2><button class="small-btn" data-go="library">Tout voir</button></div><div id="recentList" class="list"></div>
+ <div class="hero">
+  <div class="eyebrow">TON ESPACE MUSICAL</div>
+  <h1>La musique,<br>à ta façon.</h1>
+  <p>Ta collection, tes favoris, ton univers.</p>
+  <button class="primary" id="heroImport"><span>＋</span> Importer ma musique <span class="arrow">↗</span></button>
+ </div>
+ <div class="section-head"><h2>Accès rapide</h2></div>
+ <div class="tiles">
+  <button class="tile" data-go="library"><span class="ico">▤</span><span>Ma bibliothèque</span></button>
+  <button class="tile" data-go="favorites"><span class="ico">♡</span><span>Mes favoris</span></button>
+  <button class="tile" data-go="discover"><span class="ico">⌕</span><span>Découvrir</span></button>
+ </div>
+ <div class="section-head"><h2>Dernières écoutes</h2><button class="small-btn" data-go="library">Tout voir</button></div>
+ <div id="recentList" class="list"></div>
+ <div class="section-head"><h2>Mes playlists</h2><button class="small-btn" data-go="playlists">Tout voir</button></div>
+ <div id="homePlaylists"></div>
 </section>
-<section id="discover" class="view"><div class="eyebrow">EXPLORER</div><h1>Découvrir.</h1><p>Recherche dans ta collection pour cette première version.</p><div class="search" style="margin-top:18px"><span>⌕</span><input id="searchInput" placeholder="Un titre, un artiste…" autocomplete="off"></div><div id="searchList" class="list"></div><div class="discover-box"><h3>Catalogue YouTube</h3><p>La recherche YouTube officielle sera intégrée dans une prochaine version avec un lecteur conforme aux règles de la plateforme. Cette version ne récupère pas de flux audio YouTube.</p></div></section>
-<section id="library" class="view"><div class="eyebrow">TA COLLECTION</div><h1>Bibliothèque.</h1><p>Les morceaux importés sont enregistrés dans le stockage local de cette app.</p><label class="file-btn" for="fileInput">＋ Importer des fichiers audio</label><div class="section-head"><h2>Tous les morceaux</h2><span id="trackCount" class="eyebrow">0 TITRE</span></div><div id="libraryList" class="list"></div><div class="status" id="saveStatus" aria-live="polite"></div></section>
-<section id="favorites" class="view"><div class="eyebrow">TA SÉLECTION</div><h1>Favoris.</h1><p>Les morceaux que tu veux retrouver facilement.</p><div id="favoriteList" class="list" style="margin-top:18px"></div></section>
-</main></div>
+
+<section id="discover" class="view">
+ <div class="eyebrow">EXPLORER</div><h1>Découvrir.</h1>
+ <p>Recherche dans les morceaux déjà présents sur ton appareil.</p>
+ <div class="search" style="margin-top:18px"><span>⌕</span><input id="searchInput" placeholder="Un titre, un artiste…" autocomplete="off"></div>
+ <div id="searchList" class="list"></div>
+ <div class="discover-box">
+  <h3>Recherche en ligne</h3>
+  <p>La recherche dans les catalogues en ligne nécessite une source compatible. Cette version ne récupère pas les flux audio de YouTube, Spotify ou Deezer.</p>
+  <p style="margin-top:10px">Tu peux déjà importer tes propres fichiers audio et les organiser dans tes playlists.</p>
+ </div>
+</section>
+
+<section id="library" class="view">
+ <div class="eyebrow">TA COLLECTION</div><h1>Bibliothèque.</h1>
+ <p>Les morceaux importés sont enregistrés dans le stockage local de cette app.</p>
+ <label class="file-btn" for="fileInput">＋ Importer des fichiers audio</label>
+ <button class="primary" id="openPlaylists" style="margin-top:12px">♫ Mes playlists <span class="arrow">↗</span></button>
+ <div class="section-head"><h2>Tous les morceaux</h2><span id="trackCount" class="eyebrow">0 TITRE</span></div>
+ <div id="libraryList" class="list"></div>
+ <div class="status" id="saveStatus" aria-live="polite"></div>
+</section>
+
+<section id="favorites" class="view">
+ <div class="eyebrow">TA SÉLECTION</div><h1>Favoris.</h1>
+ <p>Les morceaux que tu veux retrouver facilement.</p>
+ <div id="favoriteList" class="list" style="margin-top:18px"></div>
+</section>
+
+<section id="playlists" class="view">
+ <div class="eyebrow">TA MUSIQUE, TON ORDRE</div><h1>Playlists.</h1>
+ <p>Crée tes propres collections et retrouve-les quand tu veux.</p>
+ <form id="playlistForm" class="playlist-actions">
+  <input id="playlistName" maxlength="60" placeholder="Nom de la playlist" autocomplete="off" required>
+  <button type="submit">Créer</button>
+ </form>
+ <div id="playlistList"></div>
+ <div id="playlistDetail" style="display:none">
+  <div class="playlist-detail-head">
+   <h2 id="playlistTitle"></h2>
+   <button id="backPlaylists" class="small-btn">← Retour</button>
+  </div>
+  <p id="playlistDescription"></p>
+  <div class="section-head"><h2>Morceaux</h2><button id="addToPlaylist" class="small-btn">＋ Ajouter</button></div>
+  <div id="playlistTracks" class="list"></div>
+ </div>
+ <div class="notice">Les playlists sont enregistrées sur cet appareil. Elles référencent les fichiers de ta bibliothèque, sans les dupliquer.</div>
+ <div class="status" id="playlistStatus" aria-live="polite"></div>
+</section>
+</main>
+</div>
+
 <input id="fileInput" type="file" accept="audio/*,.mp3,.m4a,.aac,.wav,.aiff,.caf,.flac,.ogg" multiple>
-<div id="player" class="player"><div class="cover">♫</div><div class="track-info"><div id="playerTitle" class="track-title">Aucun morceau</div><div id="playerSub" class="track-sub">Importe ta musique</div></div><button id="prevBtn" class="icon-btn" aria-label="Précédent">⏮</button><button id="playBtn" class="icon-btn" aria-label="Lecture ou pause">▶</button><button id="nextBtn" class="icon-btn" aria-label="Suivant">⏭</button><div class="progress"><span id="progressBar"></span></div></div>
-<div class="bottom"><nav class="nav"><button class="active" data-go="home"><span class="navico">⌂</span>Accueil</button><button data-go="discover"><span class="navico">⌕</span>Découvrir</button><button data-go="library"><span class="navico">♫</span>Bibliothèque</button></nav></div>
+
+<div id="player" class="player">
+ <div class="cover">♫</div>
+ <div class="track-info"><div id="playerTitle" class="track-title">Aucun morceau</div><div id="playerSub" class="track-sub">Importe ta musique</div></div>
+ <button id="prevBtn" class="icon-btn" aria-label="Précédent">⏮</button>
+ <button id="playBtn" class="icon-btn" aria-label="Lecture ou pause">▶</button>
+ <button id="nextBtn" class="icon-btn" aria-label="Suivant">⏭</button>
+ <div class="progress"><span id="progressBar"></span></div>
+</div>
+
+<div class="bottom">
+ <nav class="nav">
+  <button class="active" data-go="home"><span class="navico">⌂</span>Accueil</button>
+  <button data-go="discover"><span class="navico">⌕</span>Découvrir</button>
+  <button data-go="library"><span class="navico">♫</span>Bibliothèque</button>
+  <button data-go="playlists"><span class="navico">▤</span>Playlists</button>
+ </nav>
+</div>
+
 <audio id="audio" preload="metadata"></audio>
+
 <script>
-(()=> {
-const $=id=>document.getElementById(id),audio=$('audio');let tracks=[],currentId=null,recent=[],nextId=1,db,urls=new Set();
-const DB_NAME='injino-db',DB_VERSION=1,STORE='tracks';
-function openDB(){return new Promise((resolve,reject)=>{if(!('indexedDB' in window)){reject(Error('IndexedDB indisponible'));return;}const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id',autoIncrement:true});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
-function tx(mode,fn){return new Promise((resolve,reject)=>{const t=db.transaction(STORE,mode),s=t.objectStore(STORE);let result;try{result=fn(s)}catch(e){reject(e);return;}t.oncomplete=()=>resolve(result?.result);t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error||Error('Transaction annulée'));});}
-function allRecords(){return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readonly').objectStore(STORE).getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
-function saveRecord(t){return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).put(t);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
-function delRecord(id){return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).delete(id);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error);});}
-function titleFromFile(n){return n.replace(/\.[^.]+$/,'').replace(/[_-]+/g,' ').trim()||n}
-function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function makeURL(t){if(t.url)URL.revokeObjectURL(t.url);t.url=URL.createObjectURL(t.blob);urls.add(t.url);}
-function markup(t){const active=t.id===currentId;return `<div class="track"><div class="cover">${active&&!audio.paused?'♫':'♪'}</div><div class="track-info"><div class="track-title">${safe(t.title)}</div><div class="track-sub">${safe(t.artist||'Fichier local')}</div></div><button class="icon-btn" data-fav="${t.id}" aria-label="Favori">${t.favorite?'♥':'♡'}</button><button class="icon-btn" data-play="${t.id}" aria-label="Lire">${active&&!audio.paused?'Ⅱ':'▶'}</button><button class="icon-btn" data-delete="${t.id}" aria-label="Supprimer le morceau">⋯</button></div>`;}
-function renderList(target,arr,title,desc){const el=$(target);el.innerHTML=arr.length?arr.map(markup).join(''):`<div class="empty"><div class="big">♫</div><strong>${title}</strong><p style="margin-top:7px">${desc}</p></div>`;}
-function render(){ $('trackCount').textContent=`${tracks.length} TITRE${tracks.length===1?'':'S'}`;renderList('libraryList',tracks,'Ta bibliothèque est vide','Importe tes premiers morceaux pour commencer.');renderList('favoriteList',tracks.filter(t=>t.favorite),'Pas encore de favoris','Appuie sur le cœur à côté d’un morceau.');renderList('recentList',recent.map(id=>tracks.find(t=>t.id===id)).filter(Boolean).slice(0,3),'Bienvenue sur injino','Importe un morceau pour lancer ta première écoute.');search();updatePlayer();}
-function search(){const q=$('searchInput').value.trim().toLocaleLowerCase('fr');renderList('searchList',tracks.filter(t=>(t.title+' '+(t.artist||'')).toLocaleLowerCase('fr').includes(q)),'Aucun résultat local','Importe un morceau ou essaie une autre recherche.');}
-function updatePlayer(){const t=tracks.find(x=>x.id===currentId);$('player').classList.toggle('show',!!t);if(!t)return;$('playerTitle').textContent=t.title;$('playerSub').textContent=t.artist||'Fichier local';$('playBtn').textContent=audio.paused?'▶':'Ⅱ';$('progressBar').style.width=(audio.duration?audio.currentTime/audio.duration*100:0)+'%';}
-function play(id){const t=tracks.find(x=>x.id===Number(id));if(!t)return;currentId=t.id;recent=[t.id,...recent.filter(x=>x!==t.id)].slice(0,10);if(audio.src!==t.url)audio.src=t.url;audio.play().catch(()=>{});render();}
-function go(v){document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===v));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.go===v||(v==='favorites'&&b.dataset.go==='library')));window.scrollTo({top:0,behavior:'smooth'});}
-document.addEventListener('click',async e=>{const n=e.target.closest('[data-go]');if(n){go(n.dataset.go);return;}const p=e.target.closest('[data-play]');if(p){play(p.dataset.play);return;}const f=e.target.closest('[data-fav]');if(f){const t=tracks.find(x=>x.id===Number(f.dataset.fav));if(t){t.favorite=!t.favorite;await saveRecord(t);render();}return;}const d=e.target.closest('[data-delete]');if(d){const id=Number(d.dataset.delete),t=tracks.find(x=>x.id===id);if(t&&confirm(`Supprimer « ${t.title} » de ta bibliothèque Injino ?`)){if(currentId===id){audio.pause();audio.removeAttribute('src');currentId=null;}await delRecord(id);tracks=tracks.filter(x=>x.id!==id);recent=recent.filter(x=>x!==id);render();$('saveStatus').textContent='Morceau supprimé de la bibliothèque.';}return;}});
-$('heroImport').onclick=()=>$('fileInput').click();$('searchInput').addEventListener('input',search);
-$('fileInput').addEventListener('change',async e=>{const files=Array.from(e.target.files||[]);if(!files.length)return;$('saveStatus').textContent='Enregistrement des morceaux…';try{for(const file of files){const t={title:titleFromFile(file.name),artist:'Fichier local',favorite:false,blob:file,type:file.type||'audio/mpeg',addedAt:Date.now()};t.id=await saveRecord(t);makeURL(t);tracks.push(t);}render();$('saveStatus').textContent=`${files.length} morceau(x) ajouté(s) et enregistré(s) sur cet appareil.`;go('library');}catch(err){$('saveStatus').textContent='Erreur de stockage. Essaie un fichier plus petit ou libère de l’espace.';console.error(err);}e.target.value='';});
-$('playBtn').onclick=()=>{if(!tracks.some(t=>t.id===currentId))return;if(audio.paused)audio.play().catch(()=>{});else audio.pause();updatePlayer();};
-$('prevBtn').onclick=()=>{if(!tracks.length)return;let i=tracks.findIndex(t=>t.id===currentId);play(tracks[(i-1+tracks.length)%tracks.length].id);};
-$('nextBtn').onclick=()=>{if(!tracks.length)return;let i=tracks.findIndex(t=>t.id===currentId);play(tracks[(i+1)%tracks.length].id);};
-audio.addEventListener('timeupdate',updatePlayer);audio.addEventListener('play',updatePlayer);audio.addEventListener('pause',updatePlayer);audio.addEventListener('ended',()=>{if(tracks.length){let i=tracks.findIndex(t=>t.id===currentId);play(tracks[(i+1)%tracks.length].id);}});
-async function init(){try{db=await openDB();const saved=await allRecords();tracks=saved.map(t=>{makeURL(t);return t;});render();$('saveStatus').textContent='Bibliothèque locale prête.';}catch(e){console.error(e);$('saveStatus').textContent='Le stockage local n’est pas disponible dans cet environnement. Ouvre Injino depuis une adresse HTTPS pour de meilleurs résultats.';render();}}
-if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn));
+(()=>{
+'use strict';
+
+const $=id=>document.getElementById(id);
+const audio=$('audio');
+
+let tracks=[];
+let currentId=null;
+let recent=[];
+let db=null;
+let currentPlaylistId=null;
+let playlists=[];
+const DB_NAME='injino-db';
+const DB_VERSION=1;
+const STORE='tracks';
+const PLAYLIST_KEY='injino-playlists-v1';
+
+function openDB(){
+ return new Promise((resolve,reject)=>{
+  if(!('indexedDB' in window)){reject(Error('IndexedDB indisponible'));return;}
+  const req=indexedDB.open(DB_NAME,DB_VERSION);
+  req.onupgradeneeded=()=>{
+   const d=req.result;
+   if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id',autoIncrement:true});
+  };
+  req.onsuccess=()=>resolve(req.result);
+  req.onerror=()=>reject(req.error);
+ });
+}
+
+function allRecords(){
+ return new Promise((resolve,reject)=>{
+  const r=db.transaction(STORE,'readonly').objectStore(STORE).getAll();
+  r.onsuccess=()=>resolve(r.result);
+  r.onerror=()=>reject(r.error);
+ });
+}
+
+function saveRecord(t){
+ return new Promise((resolve,reject)=>{
+  const r=db.transaction(STORE,'readwrite').objectStore(STORE).put(t);
+  r.onsuccess=()=>resolve(r.result);
+  r.onerror=()=>reject(r.error);
+ });
+}
+
+function delRecord(id){
+ return new Promise((resolve,reject)=>{
+  const r=db.transaction(STORE,'readwrite').objectStore(STORE).delete(id);
+  r.onsuccess=()=>resolve();
+  r.onerror=()=>reject(r.error);
+ });
+}
+
+function titleFromFile(n){
+ return n.replace(/\.[^.]+$/,'').replace(/[_-]+/g,' ').trim()||n;
+}
+
+function safe(s){
+ return String(s??'').replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+
+function makeURL(t){
+ if(t.url)URL.revokeObjectURL(t.url);
+ t.url=URL.createObjectURL(t.blob);
+}
+
+function loadPlaylists(){
+ try{
+  const data=JSON.parse(localStorage.getItem(PLAYLIST_KEY)||'[]');
+  playlists=Array.isArray(data)?data.filter(p=>p&&typeof p.id==='string'&&typeof p.name==='string'&&Array.isArray(p.trackIds)): [];
+ }catch(e){playlists=[];}
+}
+
+function savePlaylists(){
+ try{
+  localStorage.setItem(PLAYLIST_KEY,JSON.stringify(playlists));
+  $('playlistStatus').textContent='Playlists enregistrées sur cet appareil.';
+ }catch(e){
+  $('playlistStatus').textContent='Impossible de sauvegarder. Vérifie le stockage disponible.';
+ }
+}
+
+function makeTrackMarkup(t,options={}){
+ const active=t.id===currentId&&!audio.paused;
+ const removeFromPlaylist=options.removeFromPlaylist===true;
+ return `<div class="track">
+  <div class="cover">${active?'♫':'♪'}</div>
+  <div class="track-info">
+   <div class="track-title">${safe(t.title)}</div>
+   <div class="track-sub">${safe(t.artist||'Fichier local')}</div>
+  </div>
+  <button class="icon-btn" data-fav="${t.id}" aria-label="Favori">${t.favorite?'♥':'♡'}</button>
+  <button class="icon-btn" data-play="${t.id}" aria-label="Lire">${active?'Ⅱ':'▶'}</button>
+  ${removeFromPlaylist
+   ?`<button class="icon-btn" data-remove-playlist="${t.id}" aria-label="Retirer de la playlist">−</button>`
+   :`<button class="icon-btn" data-add-playlist="${t.id}" aria-label="Ajouter à une playlist">＋</button>
+     <button class="icon-btn" data-delete="${t.id}" aria-label="Supprimer le morceau">⋯</button>`}
+ </div>`;
+}
+
+function renderList(target,arr,title,desc,options={}){
+ const el=$(target);
+ if(!el)return;
+ el.innerHTML=arr.length
+  ?arr.map(t=>makeTrackMarkup(t,options)).join('')
+  :`<div class="empty"><div class="big">♫</div><strong>${safe(title)}</strong><p style="margin-top:7px">${safe(desc)}</p></div>`;
+}
+
+function renderHomePlaylists(){
+ const el=$('homePlaylists');
+ if(!playlists.length){
+  el.innerHTML='<div class="empty"><div class="big">▤</div><strong>Pas encore de playlist</strong><p style="margin-top:7px">Crée ta première collection musicale.</p><button class="small-btn" data-go="playlists">Créer une playlist →</button></div>';
+  return;
+ }
+ el.innerHTML=playlists.slice(0,3).map(p=>`
+  <button class="playlist-card" data-open-playlist="${safe(p.id)}" style="width:100%;text-align:left;color:inherit">
+   <span class="playlist-art">♫</span>
+   <span class="playlist-info"><span class="playlist-name">${safe(p.name)}</span><span class="playlist-count" style="display:block">${p.trackIds.length} morceau(x)</span></span>
+   <span>›</span>
+  </button>`).join('');
+}
+
+function renderPlaylists(){
+ const list=$('playlistList');
+ if(currentPlaylistId){
+  const p=playlists.find(x=>x.id===currentPlaylistId);
+  if(!p){currentPlaylistId=null;renderPlaylists();return;}
+  list.style.display='none';
+  $('playlistDetail').style.display='block';
+  $('playlistTitle').textContent=p.name;
+  $('playlistDescription').textContent=p.trackIds.length+' morceau(x) dans cette playlist.';
+  const chosen=p.trackIds.map(id=>tracks.find(t=>t.id===id)).filter(Boolean);
+  p.trackIds=chosen.map(t=>t.id);
+  renderList('playlistTracks',chosen,'Playlist vide','Appuie sur « Ajouter » pour choisir des morceaux.',{removeFromPlaylist:true});
+  return;
+ }
+ $('playlistDetail').style.display='none';
+ list.style.display='block';
+ list.innerHTML=playlists.length?playlists.map(p=>`
+  <div class="playlist-card">
+   <div class="playlist-art">♫</div>
+   <div class="playlist-info">
+    <div class="playlist-name">${safe(p.name)}</div>
+    <div class="playlist-count">${p.trackIds.filter(id=>tracks.some(t=>t.id===id)).length} morceau(x)</div>
+   </div>
+   <button class="icon-btn" data-open-playlist="${safe(p.id)}" aria-label="Ouvrir">›</button>
+   <button class="icon-btn" data-rename-playlist="${safe(p.id)}" aria-label="Renommer">✎</button>
+   <button class="icon-btn" data-delete-playlist="${safe(p.id)}" aria-label="Supprimer la playlist">⋯</button>
+  </div>`).join('')
+  :'<div class="empty"><div class="big">▤</div><strong>Ta première playlist t’attend</strong><p style="margin-top:7px">Donne-lui un nom ci-dessus pour commencer.</p></div>';
+}
+
+function renderSearch(){
+ const q=$('searchInput').value.trim().toLocaleLowerCase('fr');
+ const found=tracks.filter(t=>(t.title+' '+(t.artist||'')).toLocaleLowerCase('fr').includes(q));
+ renderList('searchList',found,'Aucun résultat local','Importe un morceau ou essaie une autre recherche.');
+}
+
+function updatePlayer(){
+ const t=tracks.find(x=>x.id===currentId);
+ $('player').classList.toggle('show',!!t);
+ if(!t)return;
+ $('playerTitle').textContent=t.title;
+ $('playerSub').textContent=t.artist||'Fichier local';
+ $('playBtn').textContent=audio.paused?'▶':'Ⅱ';
+ $('progressBar').style.width=(audio.duration?audio.currentTime/audio.duration*100:0)+'%';
+}
+
+function render(){
+ $('trackCount').textContent=`${tracks.length} TITRE${tracks.length===1?'':'S'}`;
+ renderList('libraryList',tracks,'Ta bibliothèque est vide','Importe tes premiers morceaux pour commencer.');
+ renderList('favoriteList',tracks.filter(t=>t.favorite),'Pas encore de favoris','Appuie sur le cœur à côté d’un morceau.');
+ renderList('recentList',recent.map(id=>tracks.find(t=>t.id===id)).filter(Boolean).slice(0,3),'Bienvenue sur injino','Importe un morceau pour lancer ta première écoute.');
+ renderSearch();
+ renderPlaylists();
+ renderHomePlaylists();
+ updatePlayer();
+}
+
+function go(v){
+ document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id===v));
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.go===v));
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function play(id){
+ const t=tracks.find(x=>x.id===Number(id));
+ if(!t)return;
+ currentId=t.id;
+ recent=[t.id,...recent.filter(x=>x!==t.id)].slice(0,10);
+ if(audio.src!==t.url)audio.src=t.url;
+ audio.play().catch(()=>{});
+ render();
+}
+
+function createPlaylist(name){
+ const clean=name.trim();
+ if(!clean)return;
+ playlists.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,8),name:clean,trackIds:[]});
+ savePlaylists();
+ render();
+ $('playlistName').value='';
+ $('playlistStatus').textContent=`Playlist « ${clean} » créée.`;
+}
+
+function addTrackToPlaylist(trackId){
+ const t=tracks.find(x=>x.id===Number(trackId));
+ if(!t){alert('Ce morceau est introuvable dans ta bibliothèque.');return;}
+ if(!playlists.length){
+  const name=prompt('Nom de ta nouvelle playlist :');
+  if(name&&name.trim()){
+   createPlaylist(name);
+   const p=playlists[playlists.length-1];
+   p.trackIds.push(t.id);
+   savePlaylists();render();
+   alert('Morceau ajouté à « '+p.name+' ».');
+  }
+  return;
+ }
+ const choices=playlists.map((p,i)=>`${i+1}. ${p.name}`).join('\n');
+ const answer=prompt('Dans quelle playlist ajouter « '+t.title+' » ?\n\n'+choices+'\n\nEntre le numéro :');
+ if(answer===null)return;
+ const index=Number(answer)-1;
+ if(!Number.isInteger(index)||index<0||index>=playlists.length){
+  alert('Numéro de playlist invalide.');
+  return;
+ }
+ const p=playlists[index];
+ if(p.trackIds.includes(t.id)){
+  alert('Ce morceau est déjà dans cette playlist.');
+  return;
+ }
+ p.trackIds.push(t.id);
+ savePlaylists();
+ render();
+ alert('Morceau ajouté à « '+p.name+' ».');
+}
+
+function openPlaylist(id){
+ currentPlaylistId=id;
+ renderPlaylists();
+ go('playlists');
+}
+
+document.addEventListener('click',async e=>{
+ const nav=e.target.closest('[data-go]');
+ if(nav){currentPlaylistId=null;go(nav.dataset.go);if(nav.dataset.go==='playlists')renderPlaylists();return;}
+
+ const open=e.target.closest('[data-open-playlist]');
+ if(open){openPlaylist(open.dataset.openPlaylist);return;}
+
+ const p=e.target.closest('[data-play]');
+ if(p){play(p.dataset.play);return;}
+
+ const fav=e.target.closest('[data-fav]');
+ if(fav){
+  const t=tracks.find(x=>x.id===Number(fav.dataset.fav));
+  if(t){t.favorite=!t.favorite;await saveRecord(t);render();}
+  return;
+ }
+
+ const add=e.target.closest('[data-add-playlist]');
+ if(add){addTrackToPlaylist(add.dataset.addPlaylist);return;}
+
+ const remove=e.target.closest('[data-remove-playlist]');
+ if(remove){
+  const playlist=playlists.find(x=>x.id===currentPlaylistId);
+  if(playlist){
+   const id=Number(remove.dataset.removePlaylist);
+   playlist.trackIds=playlist.trackIds.filter(x=>x!==id);
+   savePlaylists();render();
+  }
+  return;
+ }
+
+ const del=e.target.closest('[data-delete]');
+ if(del){
+  const id=Number(del.dataset.delete);
+  const t=tracks.find(x=>x.id===id);
+  if(t&&confirm(`Supprimer « ${t.title} » de ta bibliothèque Injino ?`)){
+   if(currentId===id){audio.pause();audio.removeAttribute('src');currentId=null;}
+   await delRecord(id);
+   tracks=tracks.filter(x=>x.id!==id);
+   recent=recent.filter(x=>x!==id);
+   playlists.forEach(pl=>pl.trackIds=pl.trackIds.filter(x=>x!==id));
+   savePlaylists();render();
+   $('saveStatus').textContent='Morceau supprimé de la bibliothèque.';
+  }
+  return;
+ }
+
+ const delpl=e.target.closest('[data-delete-playlist]');
+ if(delpl){
+  const pl=playlists.find(x=>x.id===delpl.dataset.deletePlaylist);
+  if(pl&&confirm(`Supprimer la playlist « ${pl.name} » ? Les fichiers audio ne seront pas supprimés.`)){
+   playlists=playlists.filter(x=>x.id!==pl.id);
+   if(currentPlaylistId===pl.id)currentPlaylistId=null;
+   savePlaylists();render();
+  }
+  return;
+ }
+
+ const rename=e.target.closest('[data-rename-playlist]');
+ if(rename){
+  const pl=playlists.find(x=>x.id===rename.dataset.renamePlaylist);
+  if(pl){
+   const name=prompt('Nouveau nom de la playlist :',pl.name);
+   if(name&&name.trim()){pl.name=name.trim().slice(0,60);savePlaylists();render();}
+  }
+ }
+});
+
+$('heroImport').onclick=()=>$('fileInput').click();
+$('openPlaylists').onclick=()=>{currentPlaylistId=null;go('playlists');renderPlaylists();};
+$('searchInput').addEventListener('input',renderSearch);
+
+$('playlistForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ createPlaylist($('playlistName').value);
+});
+
+$('backPlaylists').onclick=()=>{
+ currentPlaylistId=null;
+ renderPlaylists();
+};
+
+$('addToPlaylist').onclick=()=>{
+ const p=playlists.find(x=>x.id===currentPlaylistId);
+ if(!p)return;
+ const available=tracks.filter(t=>!p.trackIds.includes(t.id));
+ if(!available.length){
+  alert(tracks.length?'Tous les morceaux de ta bibliothèque sont déjà dans cette playlist.':'Importe d’abord des morceaux dans ta bibliothèque.');
+  return;
+ }
+ const choices=available.map((t,i)=>`${i+1}. ${t.title} — ${t.artist||'Fichier local'}`).join('\n');
+ const answer=prompt('Quel morceau ajouter à « '+p.name+' » ?\n\n'+choices+'\n\nEntre le numéro :');
+ if(answer===null)return;
+ const index=Number(answer)-1;
+ if(!Number.isInteger(index)||index<0||index>=available.length){
+  alert('Numéro invalide.');
+  return;
+ }
+ p.trackIds.push(available[index].id);
+ savePlaylists();render();
+};
+
+$('fileInput').addEventListener('change',async e=>{
+ const files=Array.from(e.target.files||[]);
+ if(!files.length)return;
+ $('saveStatus').textContent='Enregistrement des morceaux…';
+ let added=0;
+ try{
+  for(const file of files){
+   const t={title:titleFromFile(file.name),artist:'Fichier local',favorite:false,blob:file,type:file.type||'audio/mpeg',addedAt:Date.now()};
+   t.id=await saveRecord(t);
+   makeURL(t);
+   tracks.push(t);
+   added++;
+  }
+  render();
+  $('saveStatus').textContent=`${added} morceau(x) ajouté(s) et enregistré(s) sur cet appareil.`;
+  go('library');
+ }catch(err){
+  $('saveStatus').textContent='Erreur de stockage. Vérifie l’espace disponible.';
+  console.error(err);
+ }
+ e.target.value='';
+});
+
+$('playBtn').onclick=()=>{
+ if(!tracks.some(t=>t.id===currentId))return;
+ if(audio.paused)audio.play().catch(()=>{});else audio.pause();
+ updatePlayer();
+};
+
+$('prevBtn').onclick=()=>{
+ if(!tracks.length)return;
+ let i=tracks.findIndex(t=>t.id===currentId);
+ play(tracks[(i-1+tracks.length)%tracks.length].id);
+};
+
+$('nextBtn').onclick=()=>{
+ if(!tracks.length)return;
+ let i=tracks.findIndex(t=>t.id===currentId);
+ play(tracks[(i+1)%tracks.length].id);
+};
+
+audio.addEventListener('timeupdate',updatePlayer);
+audio.addEventListener('play',()=>{updatePlayer();render();});
+audio.addEventListener('pause',()=>{updatePlayer();render();});
+audio.addEventListener('ended',()=>{
+ if(tracks.length){
+  let i=tracks.findIndex(t=>t.id===currentId);
+  play(tracks[(i+1)%tracks.length].id);
+ }
+});
+
+async function init(){
+ loadPlaylists();
+ try{
+  db=await openDB();
+  const saved=await allRecords();
+  tracks=saved.map(t=>{makeURL(t);return t;});
+  render();
+  $('saveStatus').textContent='Bibliothèque locale prête.';
+ }catch(e){
+  console.error(e);
+  $('saveStatus').textContent='Le stockage local est indisponible. Ouvre Injino depuis son adresse HTTPS.';
+  render();
+ }
+}
+
+if('serviceWorker' in navigator&&location.protocol.startsWith('http')){
+ window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn));
+}
 init();
 })();
 </script>
-</body></html>
+</body>
+</html>
