@@ -1,0 +1,11 @@
+{
+  "name": "injino — ton espace musical",
+  "short_name": "injino",
+  "description": "Ton espace musical personnel",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f8f5",
+  "theme_color": "#f6f8f5",
+  "icons": []
+}

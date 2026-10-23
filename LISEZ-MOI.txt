@@ -1,0 +1,13 @@
+INJINO v0.2 — prototype PWA
+
+Contenu :
+- index.html : interface + lecteur + stockage local IndexedDB
+- manifest.json : métadonnées d'installation PWA
+- sw.js : cache hors ligne de l'interface
+
+Important :
+1. Pour que le Service Worker fonctionne, les fichiers doivent être servis en HTTPS (ou localhost). Ouvrir index.html directement depuis Fichiers ne suffit pas pour installer la PWA et peut bloquer certaines fonctions.
+2. Sur iPhone, publie le dossier sur un hébergement HTTPS statique. Ensuite ouvre l'URL dans Safari > bouton Partager > Sur l'écran d'accueil.
+3. Importe des fichiers audio depuis le sélecteur iOS. La bibliothèque est conservée dans IndexedDB pour ce navigateur/origine. Ne supprime pas les données du site si tu veux conserver la bibliothèque.
+4. Le cache hors ligne couvre l'interface. Les fichiers audio importés sont stockés séparément dans IndexedDB. Les limitations de stockage et d'éviction d'iOS s'appliquent.
+5. Aucun flux YouTube n'est extrait. La recherche YouTube n'est pas encore intégrée.
